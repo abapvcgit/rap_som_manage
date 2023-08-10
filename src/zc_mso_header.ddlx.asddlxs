@@ -87,7 +87,7 @@ annotate view zc_mso_header with
 
   @UI:{
         lineItem: [{ position: 7, label: 'Overall Status', criticality: '_OvStatus.StatusCriticality'}]
-//                   { position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_CANCEL', label: 'Cancel' }] //report position
+  //                   { position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_CANCEL', label: 'Cancel' }] //report position
   }
   @UI.textArrangement: #TEXT_ONLY
   @UI.dataPoint: {
@@ -99,17 +99,20 @@ annotate view zc_mso_header with
   @UI:{
         lineItem: [{ position: 8 , label: 'Billing Status', criticality: '_BillStatus.PaidCriticaly'}],
         fieldGroup: [{ qualifier: 'information', position: 4 ,importance: #HIGH, criticality: '_BillStatus.PaidCriticaly'}]// identification group postion
-//        identification: [{ position: 2 , type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_PAID' , label: 'Set to Paid' }]
+  //        identification: [{ position: 2 , type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_PAID' , label: 'Set to Paid' }]
   }
   @UI.textArrangement: #TEXT_ONLY
   Billingstatus;
   @UI:{
         lineItem: [{ position: 9 ,label: 'Delivery Status', criticality: '_DelStatus.deliveryCriticaly' }],
         fieldGroup: [{ qualifier: 'information', position: 5 ,importance: #HIGH , criticality: '_DelStatus.deliveryCriticaly'} ] // identification group postion
-//        identification: [{ position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_DEL', label: 'Set to Delivered'  }]
+  //        identification: [{ position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_DEL', label: 'Set to Delivered'  }]
   }
   @UI.textArrangement: #TEXT_ONLY
   Deliverystatus;
+
+  @UI:{  fieldGroup: [{ qualifier: 'information', position: 6 ,importance: #HIGH } ] }
+  Deliverydate;
 
   @UI:{
         lineItem: [{ position: 3 }], //report position

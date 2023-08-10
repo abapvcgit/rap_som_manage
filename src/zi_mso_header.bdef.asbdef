@@ -1,0 +1,29 @@
+implementation unmanaged;  //in class zbp_i_mso_header unique;
+
+define behavior for zi_mso_header alias SalesOrder
+implementation in class zbp_i_mso_header unique
+//late numbering
+//lock master
+//authorization master
+etag Lchg_Date_Time
+{
+
+  field ( readonly ) SalesorderId, Billingstatus, Deliverystatus, Grossamount, Netamount,Currencycode;
+  field ( features : instance ) Businesspartner;
+  create;
+  update;
+  delete;
+  association _Item { create; }
+}
+
+define behavior for zi_mso_item alias Item
+implementation in class zbp_i_mso_item
+//late numbering
+//lock dependent( <local_field_name> = <target_field_name> )
+//authorization dependent( <local_field_name> = <target_field_name> )
+//etag <field_name>
+{
+  create;
+  update;
+  delete;
+}
