@@ -1,0 +1,95 @@
+@Metadata.layer: #CORE
+@UI:{
+       headerInfo:{
+                typeName: 'Item',
+                typeNamePlural: 'Items',
+                title:{
+                        type: #STANDARD,
+                        label: 'Connections',
+                        value: 'Prodid'
+                },
+                description:{
+                        type: #STANDARD,
+                        value: 'Itempos'
+                },imageUrl: 'ProdPicture'
+
+       }
+}
+annotate view zc_mso_item with
+{
+  @UI.facet: [
+      {
+        id: 'item-info',
+        purpose: #STANDARD,
+        position: 1,
+        label: 'Sales Order Item',
+        type: #COLLECTION
+      },
+
+          { type: #FIELDGROUP_REFERENCE ,
+             label : 'Item information',
+             parentId: 'item-info',
+             id: 'Information' ,
+             position: 1,
+             targetQualifier: 'item-inf'
+          },
+          { type: #FIELDGROUP_REFERENCE ,
+             label : 'Item Total',
+             parentId: 'item-info',
+             id: 'Totals' ,
+             position: 2,
+             targetQualifier: 'item-tot'
+          },
+       {
+         purpose: #HEADER,
+         position: 1,
+         importance: #HIGH,
+         type: #DATAPOINT_REFERENCE,
+         targetQualifier: 'Net_Amount'
+       }
+  ]
+
+
+  @UI:{
+        fieldGroup: [{ qualifier: 'item-inf', position: 1 ,importance: #HIGH}], // identification group postion
+        lineItem: [ { position: 1 ,importance: #HIGH, label: ' ' } ]
+  }
+  Itempos;
+
+
+  @UI:{
+        lineItem: [ {position: 2, importance: #HIGH } ], //report position
+        selectionField: [{ position:2 }], // filter position
+        fieldGroup: [{ qualifier: 'item-inf', position: 2 ,importance: #HIGH}] // identification group postion
+  }
+  @EndUserText: {
+     label:     'Product',
+     quickInfo: 'Product'
+  }
+  Prodid;
+  @UI:{
+        lineItem: [{ position: 3 }], //report position
+        fieldGroup: [{ qualifier: 'item-inf', position: 3 ,importance: #HIGH}] // identification group postion
+  }
+  Quantity;
+
+
+  @UI:{
+        lineItem: [{ position: 4 }], //report position
+        fieldGroup: [{ qualifier: 'item-tot', position: 1 ,importance: #HIGH}] // identification group postion
+    }
+  Grossamount;
+  @UI:{
+        lineItem: [{ position: 5 }], //report position
+        fieldGroup: [{ qualifier: 'item-tot', position: 2 ,importance: #HIGH}] // identification group postion
+    }
+  @UI.dataPoint.title: 'Net Amount'
+  Net_Amount;
+
+  @UI:{
+      lineItem: [{ position: 6 }], //report position
+      fieldGroup: [{ qualifier: 'item-inf', position: 5 ,importance: #HIGH}] // identification group postion
+  }
+  Available;
+
+}

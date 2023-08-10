@@ -1,0 +1,169 @@
+@Metadata.layer: #CORE
+@UI:{
+       headerInfo:{
+                typeName: 'Sales Order List',
+                typeNamePlural: 'Sales Orders List',
+                title:{
+                        type: #STANDARD,
+                        label: 'Connection',
+                        value: 'SalesorderId'
+                },
+                description:{
+                        type: #STANDARD,
+                        value: 'PartnerName'
+                }
+       }
+}
+annotate view zc_mso_header with
+{
+  @UI.facet: [
+        {
+           id: 'salesorder_info',
+           purpose: #STANDARD,
+           position: 1,
+           label: 'Sales Order',
+           type: #COLLECTION
+         },
+            { type: #FIELDGROUP_REFERENCE ,
+              label : 'Sales Order Information',
+              parentId: 'salesorder_info',
+              id: 'Information' ,
+              position: 1,
+              targetQualifier: 'information'
+             },
+             { type: #FIELDGROUP_REFERENCE ,
+              label : 'Total',
+              parentId: 'salesorder_info',
+              id: 'Total' ,
+              position: 2,
+              targetQualifier: 'total'
+             },
+             {
+                purpose: #STANDARD,
+                position: 2,
+                importance: #HIGH,
+                label: 'Items Detail',
+                type: #LINEITEM_REFERENCE,
+                targetElement: '_Item'
+             },
+  /* Header facets */
+       {
+            purpose:    #HEADER,
+            position:   1,
+            importance: #HIGH,
+            type:       #DATAPOINT_REFERENCE,
+            targetQualifier: 'Overallstatus'
+       },
+       {
+            purpose:    #HEADER,
+            position:   2,
+            importance: #HIGH,
+            type:       #FIELDGROUP_REFERENCE,
+            targetQualifier: 'HeaderInf'
+      },
+      {
+            purpose:    #HEADER,
+            position:   3,
+            importance: #HIGH,
+            type:       #FIELDGROUP_REFERENCE,
+            targetQualifier: 'AdminDataCreated'
+      }
+
+  ]
+
+  @UI:{
+          lineItem: [{ position: 1 }], //report position
+          selectionField: [{ position: 1 }], // filter position
+          fieldGroup: [{ qualifier: 'information', position: 1 ,importance: #HIGH}] // identification group postion
+    }
+  SalesorderId;
+
+  @UI:{
+        lineItem: [{ position: 2 } ], //report position
+        selectionField: [{ position: 2 }], // filter position
+        fieldGroup: [{ qualifier: 'information', position: 2 ,importance: #HIGH}]// identification group postion
+  }
+  Businesspartner;
+
+  @UI:{
+        lineItem: [{ position: 7, label: 'Overall Status', criticality: '_OvStatus.StatusCriticality'}]
+//                   { position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_CANCEL', label: 'Cancel' }] //report position
+  }
+  @UI.textArrangement: #TEXT_ONLY
+  @UI.dataPoint: {
+      title: 'Overall Status',
+      criticality: '_OvStatus.StatusCriticality'
+    }
+  Overallstatus;
+
+  @UI:{
+        lineItem: [{ position: 8 , label: 'Billing Status', criticality: '_BillStatus.PaidCriticaly'}],
+        fieldGroup: [{ qualifier: 'information', position: 4 ,importance: #HIGH, criticality: '_BillStatus.PaidCriticaly'}]// identification group postion
+//        identification: [{ position: 2 , type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_PAID' , label: 'Set to Paid' }]
+  }
+  @UI.textArrangement: #TEXT_ONLY
+  Billingstatus;
+  @UI:{
+        lineItem: [{ position: 9 ,label: 'Delivery Status', criticality: '_DelStatus.deliveryCriticaly' }],
+        fieldGroup: [{ qualifier: 'information', position: 5 ,importance: #HIGH , criticality: '_DelStatus.deliveryCriticaly'} ] // identification group postion
+//        identification: [{ position: 1, type: #FOR_ACTION, dataAction: 'BOPF:SET_TO_DEL', label: 'Set to Delivered'  }]
+  }
+  @UI.textArrangement: #TEXT_ONLY
+  Deliverystatus;
+
+  @UI:{
+        lineItem: [{ position: 3 }], //report position
+        fieldGroup: [{ qualifier: 'total', position: 1 ,importance: #HIGH}]// identification group postion
+  }
+  Grossamount;
+
+  @UI:{
+        lineItem: [{ position: 4 }], //report position
+        fieldGroup: [{ qualifier: 'total', position: 2 ,importance: #HIGH}]// identification group postion
+  }
+  Netamount;
+
+  @UI:{
+       lineItem: [{ position: 5 }], //report position
+       fieldGroup: [{ qualifier: 'HeaderInf',  position: 1, importance: #MEDIUM },
+                    { qualifier: 'information', position: 6 ,importance: #HIGH} ]
+  }
+  @UI.textArrangement: #TEXT_ONLY
+  Paymentmethod;
+
+  @UI:{
+       lineItem: [{ position: 6 }], //report position
+        fieldGroup: [{ qualifier: 'HeaderInf',  position: 2, importance: #MEDIUM },
+                     { qualifier: 'information', position: 7 ,importance: #HIGH} ]
+  }
+  @UI.textArrangement: #TEXT_ONLY
+  Paymentterms;
+  @UI:{
+      fieldGroup: [{ qualifier: 'AdminDataCreated', position: 1 ,label: 'Updated By',importance: #HIGH}]// identification group postion
+  }
+
+  Lchg_Uname;
+
+  @UI:{
+      fieldGroup: [{ qualifier: 'AdminDataCreated', position: 2 ,label: 'Updated',importance: #HIGH}]// identification group postion
+  }
+  Lchg_Date_Time;
+
+  @UI.hidden: true
+  PartnerName;
+  @UI.hidden: true
+  OvStatusTxt;
+  @UI.hidden: true
+  BillStatusTxt;
+  @UI.hidden: true
+  DelivetyStatusTxt;
+  @UI.hidden: true
+  Crea_Date_Time;
+  @UI.hidden: true
+  Crea_Uname;
+  @UI.hidden: true
+  PaymentMethodTxt;
+  @UI.hidden: true
+  PaymentTermsTxt;
+
+}

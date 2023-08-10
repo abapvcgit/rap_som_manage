@@ -1,0 +1,15 @@
+@EndUserText.label: 'Service for SalesOrder Manager'
+define service Zu_mso_salesorder {
+  expose zc_mso_header as SalesOrder;
+  expose zc_mso_item as Item;
+  expose zepmra_billstatus_vh as BillingStatus;
+  expose I_Currency as Currency;
+  expose zepmra_delivery_vh as DeliveryStatus;
+  expose zepmra_overralstatus_vh as OverallStatus;
+  expose SEPM_I_BusinessPartner as Partner;
+  expose zepmra_paymentmth_vh as PaymentMethod;
+  expose zepmra_paymenterms_vh as PaymentsTerms;
+  expose zepmra_atp_vh as AtpStatus;
+  expose zepmra_prodname_vh as ProDescription;
+  expose SEPM_I_Product_E as Product;
+}
